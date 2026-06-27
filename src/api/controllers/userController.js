@@ -1,4 +1,4 @@
-import { success } from "zod";
+
 import { updateProfile,getUserProfile as getUserProfileService, searchUserService } from "../../services/userService.js";
 
 export async function updateMyProfile(req,res){
