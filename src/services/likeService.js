@@ -5,7 +5,6 @@ import { findPostOwner } from "../repositories/postRepository.js";
 import { getLikeCount ,createLike,deleteLike} from "../repositories/likeRepository.js";
 import { createNotification } from "../repositories/notificationRepository.js";
 import { NotificationTypes } from "../constants/notificationTypes.js";
-import { createNotificationService } from "./notificationService.js";
 import { eventBus } from "../events/eventBus.js";
 import { pool } from "../db/pool.js";
 import { logger } from "../logger/logger.js";

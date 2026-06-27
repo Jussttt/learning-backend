@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 
 import { findUserByEmail,doesProfileNameExist,createUser,findUserById } from "../repositories/authRepository.js";
-
+import { NotFoundError } from "../errors/NotFoundError.js";
 import { ConflictError } from "../errors/ConflictError.js";
 import { logger } from "../logger/logger.js";
 import { env } from "../config/env.js";
