@@ -1,7 +1,12 @@
-import { AppError } from "./AppError";
+import { AppError } from "./AppError.js";
 
-export class ForbiddenError extends AppError{
-    constructor(message="Forbidden"){
-        super(message,403);
+export class ValidationError extends AppError{
+    constructor(
+        message="Validation failed",
+        details= {}
+    ){
+        super(message,400);
+        this.details=details;
+
     }
 }

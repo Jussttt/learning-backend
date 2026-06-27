@@ -9,7 +9,7 @@ const envSchema =z.object({
     PORT: z.coerce.number().int().min(1).max(65535).default(3000),
     DATABASE_URL:z.string().url(),
     JWT_SECRET:z.string().min(32),
-    JWT_EXPIRES_IN:z.string().min(32).default("7d"),
+    JWT_EXPIRES_IN:z.string().min(1).default("7d"),
     BCRYPT_ROUNDS: z.coerce.number().int().min(10).max(14).default(12),
     LOG_LEVEL: z.enum([
         "fatal",
@@ -18,7 +18,12 @@ const envSchema =z.object({
         "info",
         "debug",
         "trace"
-    ]).default("info")
+    ]).default("info"),
+    REDIS_URL:z.string().url(),
+    AWS_ACCESS_KEY_ID: z.string().min(1),
+    AWS_SECRET_ACCESS_KEY: z.string().min(1),
+    AWS_REGION: z.string().min(1),
+    S3_BUCKET_NAME: z.string().min(1),
 });
 
 const parsedEnv=envSchema.safeParse(process.env);

@@ -1,6 +1,25 @@
-node_modules
+# Dependencies
+node_modules/
+
+# Environment files
 .env
-coverage/
-dist/
-build/
+.env.*
+!.env.example
+
+# Logs
+logs/
 *.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Coverage
+coverage/
+
+# Build output (if added later)
+dist/

@@ -1,0 +1,2 @@
+ALTER TABLE stories 
+ADD COLUMN deleted_at TIMESTAMP WITH TIME ZONE ;

@@ -1,102 +1,66 @@
 import { createApp } from "./app.js";
 import { logger } from "./logger/logger.js";
 import { env } from "./config/env.js";
-import { verifyDatabase , pool } from "./db/pool.js";
+import { verifyDatabase } from "./db/pool.js";
+import http from "http";
 
+import { createSocketServer } from "./socket/socketServer.js";
+import { cacheClient } from "./cache/cacheServer.js";
+import { registerRecurringJobs } from "./jobs/registerReccuringJobs.js";
+
+import { registerShutdownHandlers } from "./shutdown/gracefulShutdown.js";
 
 const app = createApp();
 
+const server = http.createServer(app);
+
+const io = await createSocketServer(server);
+
 async function startServer() {
-  try {
-    await verifyDatabase();
-
-    logger.info(
-      { component: "postgres" },
-      "Database verification successful"
-    );
-
-  
-
-    const server = app.listen(
-      env.PORT,
-      () => {
-        logger.info(
-          { port: env.PORT },
-          "Server started"
-        );
-      }
-    );
-
-
-    logger.info(
-      "Registering shutdown handlers"
-    );
-
-
-    
-
-    process.on("SIGINT", () => {
-      shutdown(server);
-    });
-
-    process.on(
-      "SIGTERM",
-      () => shutdown(server)
-    );
-
-    process.on("unhandledRejection",(reason)=>{
-      logger.fatal({ reason },"Unhandled Promise Rejection");
-      shutdown(server);
-    });
-
-
-    process.on(
-      "uncaughtException",
-      (err) => {
-        logger.fatal(
-          { err },
-          "Uncaught Exception"
-        );
-
-        shutdown(server);
-      }
-    );
-
-    return server;
-
-  } catch (err) {
-    logger.fatal(
-      { err },
-      "Application startup failed"
-    );
-
-    process.exit(1);
-  }
-}
-
-
-async function shutdown(server){
-  
-  logger.info("Shutdown signal recieved");
-
-  server.close(async ()=>{
-    logger.info("HTTP server closed");
-
 
     try{
-      await pool.end();
 
-      logger.info("PostgreSQL pool closed");
-      process.exit(0);
+        await verifyDatabase();
+
+        logger.info(
+            { component:"postgres" },
+            "Database verification successful"
+        );
+
+        await cacheClient.connect();
+
+        logger.info(
+            "Redis Cache Connected"
+        );
+
+        await registerRecurringJobs();
+
+        server.listen(
+            env.PORT,
+            ()=>{
+                logger.info(
+                    { port:env.PORT },
+                    "Server started"
+                );
+            }
+        );
+
+        registerShutdownHandlers({
+            server,
+            io
+        });
+
+    }catch(err){
+
+        logger.fatal(
+            { err },
+            "Application startup failed"
+        );
+
+        process.exit(1);
+
     }
-    catch(err){
-      logger.error({err},"Error clossing PostgreSQL pool");
 
-      process.exit(1);
-    }
-  });
-
-  
 }
 
 startServer();

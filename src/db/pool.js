@@ -32,6 +32,8 @@ pool.on("error", (err) => {
         "Unexpected PostgreSQL pool error"
     );
 });
+
+
 export async function verifyDatabase(){
     const result= await pool.query(
         "SELECT NOW()"
