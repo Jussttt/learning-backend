@@ -5,7 +5,7 @@ export function errorHandler(
     err,
     req,
     res,
-    next
+    _next
 ) {
 
     if (err instanceof AppError) {
