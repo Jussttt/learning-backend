@@ -4,7 +4,7 @@ import { findNotificationsByUserId } from "../repositories/notificationRepositor
 import {
     createNotification
 } from "../repositories/notificationRepository.js";
-
+import { NotFoundError } from "../errors/NotFoundError.js";
 import { markNotificationAsRead } from "../repositories/notificationRepository.js";
 import {
     getUnreadNotificationCount

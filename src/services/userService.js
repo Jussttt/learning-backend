@@ -1,5 +1,4 @@
 import { cacheClient } from "../cache/cacheServer.js";
-import { ConflictError } from "../errors/ConflictError.js";
 import { NotFoundError } from "../errors/NotFoundError.js";
 import { findUserById } from "../repositories/authRepository.js";
 import { searchUsers, updateUserProfile } from "../repositories/userRepository.js";

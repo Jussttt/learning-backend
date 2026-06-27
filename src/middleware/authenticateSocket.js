@@ -22,7 +22,7 @@ export function authenticateSocket(
         };
 
         next();
-    }catch(err){
+    }catch{
         next(
             new Error("Invalid Token")
         );

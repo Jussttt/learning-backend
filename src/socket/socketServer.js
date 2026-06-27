@@ -1,9 +1,8 @@
 import {Server } from "socket.io";
 import {logger} from "../logger/logger.js";
 import { authenticateSocket } from "../middleware/authenticateSocket.js";
-import { addUserSocket,removeUserSocket,getAllUserSockets,getRegistrySnapshot,isUserOnline } from "./socketRegistry.js";
+import { addUserSocket,removeUserSocket,getRegistrySnapshot,isUserOnline } from "./socketRegistry.js";
 import { eventBus } from "../events/eventBus.js";
-import { registerRedisSubscriber } from "../events/redisSubscriber.js";
 import { createAdapter }
 from "@socket.io/redis-adapter";
 

@@ -3,7 +3,7 @@ from "../db/pool.js";
 
 import { cacheClient } from "../cache/cacheServer.js";
 import { storyQueue } from "../jobs/queues/storyQueue.js";
-import { HeadBucketCommand, ListBucketsCommand } from "@aws-sdk/client-s3";
+import { HeadBucketCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "../storage/s3Client.js";
 import { env } from "../config/env.js";
 

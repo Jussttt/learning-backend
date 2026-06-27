@@ -28,7 +28,7 @@ export function authenticate(
         };
 
         next();
-    } catch{
+    } catch(err){
         req.log.warn(
             { err },
             "JWT verification failed"

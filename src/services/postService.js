@@ -4,7 +4,7 @@ import { pool } from "../db/pool.js";
 import { ForbiddenError } from "../errors/ForbiddenError.js";
 import { findUserById } from "../repositories/authRepository.js";
 import { generateReadUrl } from "../storage/s3Service.js";
-
+import { logger } from "../logger/logger.js";
 
 export async function createUserPost(
     currentUserId,

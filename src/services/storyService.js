@@ -5,6 +5,8 @@ import { ForbiddenError } from "../errors/ForbiddenError.js";
 import { generateReadUrl } from "../storage/s3Service.js";
 import { scheduleStoryExpiration } from "../jobs/producers/storyProducer.js";
 
+
+
 export async function createUserStory(
     currentUserId,
     data,
@@ -103,7 +105,7 @@ export async function getStoryViewers(
     }
 
     if(Number(story.user_id)!==Number(currentUserId)){
-        throw new forbiddenError("You are not allowed to view story viewers");
+        throw new ForbiddenError("You are not allowed to view story viewers");
     }
 
     return await getStoryViewersRepository(storyId);

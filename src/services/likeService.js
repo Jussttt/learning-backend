@@ -8,6 +8,8 @@ import { NotificationTypes } from "../constants/notificationTypes.js";
 import { createNotificationService } from "./notificationService.js";
 import { eventBus } from "../events/eventBus.js";
 import { pool } from "../db/pool.js";
+import { logger } from "../logger/logger.js";
+
 export async function likePost(
     currentUserId,
     postId

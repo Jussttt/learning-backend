@@ -1,4 +1,4 @@
-import e from "express";
+
 import { pool } from "../db/pool.js";
 
 export async function findUserByEmail(email){

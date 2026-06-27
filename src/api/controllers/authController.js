@@ -1,7 +1,7 @@
 
 import { signupUser } from "../../services/authService.js";
 
-import { loginUser ,getCurrentUser} from "../../services/authService.js";
+import { loginUser } from "../../services/authService.js";
 
 export async function signup(req,res){
 

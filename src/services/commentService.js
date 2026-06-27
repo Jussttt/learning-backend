@@ -5,7 +5,7 @@ import { eventBus } from "../events/eventBus.js";
 import { createNotification } from "../repositories/notificationRepository.js";
 import { pool } from "../db/pool.js";
 import { NotificationTypes } from "../constants/notificationTypes.js";
-
+import { ForbiddenError } from "../errors/ForbiddenError.js";
 
 
     export async function createPostComment(

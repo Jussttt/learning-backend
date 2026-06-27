@@ -26,7 +26,7 @@ new Worker(
                 console.log(
                     `Deleted story ${story.id}`
                 );
-            }catch(err){
+            }catch{
                 console.error(
                     `Failed Story ${story.id}`,
                 );

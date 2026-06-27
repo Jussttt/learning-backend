@@ -39,10 +39,9 @@ import {
 import {
     followParamsSchema
 } from "../validators/followValidator.js";
-import { getUserPosts, searchPosts } from "../controllers/postController.js";
+import { getUserPosts } from "../controllers/postController.js";
 
 import { userIdParamsSchema } from "../validators/userValidator.js";
-import { searchPostsSchema } from "../validators/postValidator.js";
 
 
 const router = Router();

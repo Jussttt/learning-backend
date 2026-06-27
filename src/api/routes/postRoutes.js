@@ -7,7 +7,7 @@ import { asyncHandler } from "../../utils/asyncHandler.js";
 import { createPost, getPost, removePost } from "../controllers/postController.js";
 import { getLikeCount,like,unlike } from "../controllers/likeController.js";
 import { createComment,getComments,getCommentCount } from "../controllers/commentController.js";
-import { commentIdParamsSchema, createCommentSchema } from "../validators/commentValidator.js";
+import { createCommentSchema } from "../validators/commentValidator.js";
 import { searchPostsSchema } from "../validators/postValidator.js";
 import { searchPosts } from "../controllers/postController.js";
 

@@ -5,7 +5,6 @@ import { createFollow, deleteFollow, doesFollowRelationshipExists, getFollowCoun
 import { CacheKeys } from "../cache/cacheKeys.js";
 import { cacheClient } from "../cache/cacheServer.js";
 import { logger } from "../logger/logger.js";
-import { createNotificationService } from "./notificationService.js";
 import { NotificationTypes } from "../constants/notificationTypes.js";
 import { createNotification } from "../repositories/notificationRepository.js";
 import { pool } from "../db/pool.js";
@@ -216,7 +215,7 @@ export async function getUserFollowStats(userId){
             "User not found"
         );
     }
-    
+
     const cacheKey =
         CacheKeys.followStats(
             userId

@@ -7,8 +7,6 @@ import { requestIdMiddleware } from "./middleware/requestId.js";
 import { requestLogger } from "./logger/requestLogger.js";
 import { notFoundHandler } from "./middleware/notFoundHandler.js";
 import { errorHandler } from "./middleware/errorHandler.js";
-import { checkDatabaseHealth, checkHealth } from "./monitoring/healthService.js";
-import { asyncHandler } from "./utils/asyncHandler.js";
 import authRoutes from "./api/routes/authRoutes.js";
 import userRoutes from "./api/routes/userRoutes.js";
 import postRoutes from "./api/routes/postRoutes.js";
