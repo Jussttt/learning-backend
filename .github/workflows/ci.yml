@@ -31,5 +31,7 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+      - name: Build Production Docker Image
+        run: docker build -t instagram-backend .
       # - name: Run Tests
       #   run: npm test

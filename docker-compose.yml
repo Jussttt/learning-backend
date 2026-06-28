@@ -21,7 +21,9 @@ services:
     #   - "6379:6379"
 
   backend1:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
 
     env_file:
       - .env
@@ -38,7 +40,9 @@ services:
       - redis
 
   backend2:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
 
     env_file:
       - .env
