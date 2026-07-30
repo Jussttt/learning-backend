@@ -89,9 +89,9 @@ export function createApp(){
         getMetrics
     );
 
-    app.get("/test500", (req, res) => {
-        throw new Error("Testing 500");
-    });
+    // app.get("/test500", (req, res) => {
+    //     throw new Error("Testing 500");
+    // });
 
     
 
