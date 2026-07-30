@@ -23,3 +23,5 @@ coverage/
 
 # Build output (if added later)
 dist/
+
+nginx/certs/

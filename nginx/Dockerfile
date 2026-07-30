@@ -1,0 +1,7 @@
+FROM nginx:alpine
+
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+
+COPY nginx/conf.d /etc/nginx/conf.d
+
+COPY nginx/certs /etc/nginx/certs

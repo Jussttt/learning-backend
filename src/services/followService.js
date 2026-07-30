@@ -6,9 +6,10 @@ import { CacheKeys } from "../cache/cacheKeys.js";
 import { cacheClient } from "../cache/cacheServer.js";
 import { logger } from "../logger/logger.js";
 import { NotificationTypes } from "../constants/notificationTypes.js";
-import { createNotification } from "../repositories/notificationRepository.js";
 import { pool } from "../db/pool.js";
 import { eventBus } from "../events/eventBus.js";
+import { incrementFollowCreated } from "../monitoring/metricsService.js";
+import { createNotificationService } from "./notificationService.js";
 
 export async function followUser(currentUserId,targetUserId){
     if(Number(currentUserId)===Number(targetUserId)){
@@ -69,7 +70,7 @@ export async function followUser(currentUserId,targetUserId){
         );
 
         
-        notification=await createNotification(
+        notification=await createNotificationService(
             client,
             {
                 recipientUserId: targetUserId,
@@ -80,6 +81,7 @@ export async function followUser(currentUserId,targetUserId){
         );
 
         await client.query("COMMIT");
+        incrementFollowCreated();
     }
     catch (err) {
         try {

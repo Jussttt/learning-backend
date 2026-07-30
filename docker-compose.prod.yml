@@ -50,8 +50,64 @@ services:
       redis:
         condition: service_healthy
 
+  nginx:
+
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+
+    restart: unless-stopped
+
+    depends_on:
+      - backend
+
     ports:
-      - "3000:3000"
+      - "80:80"
+      - "443:443"
+
+  
+  prometheus:
+
+    image: prom/prometheus:latest
+
+    restart: unless-stopped
+
+    volumes:
+
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+
+    command:
+
+      - "--config.file=/etc/prometheus/prometheus.yml"
+
+    ports:
+
+      - "9090:9090"
+
+    depends_on:
+
+      - backend
+  
+  grafana:
+
+    image: grafana/grafana-oss:11.6.0
+
+    restart: unless-stopped
+
+    ports:
+      - "3001:3000"
+
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+      - ./grafana/provisioning:/etc/grafana/provisioning
+
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+
+    depends_on:
+      - prometheus
+    
 
 volumes:
   postgres_data:
+  grafana_data:

@@ -8,8 +8,9 @@ import { NotFoundError } from "../errors/NotFoundError.js";
 import { markNotificationAsRead } from "../repositories/notificationRepository.js";
 import {
     getUnreadNotificationCount
-}
+}   
 from "../repositories/notificationRepository.js";
+import { incrementNotificationCreated } from "../monitoring/metricsService.js";
 
 
 export async function getNotifications(
@@ -37,6 +38,11 @@ export async function createNotificationService(
         "notification.created",
         notification
     );
+
+    incrementNotificationCreated(
+        data.type
+    );
+    
     return notification;
 }
 

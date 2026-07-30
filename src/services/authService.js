@@ -7,6 +7,7 @@ import { logger } from "../logger/logger.js";
 import { env } from "../config/env.js";
 import { UnauthorizedError } from "../errors/UnauthorizedError.js";
 import { generateAccessToken } from "../utils/jwt.js";
+import { incrementLogin } from "../monitoring/metricsService.js";
 
 
 export async function signupUser(data){
@@ -73,6 +74,7 @@ export async function loginUser({
             },
             "Login failed: user not found"
         );
+        incrementLogin("failure");
         throw new UnauthorizedError();
     }
 
@@ -87,6 +89,7 @@ export async function loginUser({
             },
             "Login failed: invalid password"
         );
+        incrementLogin("failure");
         throw new UnauthorizedError();
     }
 
@@ -102,6 +105,8 @@ export async function loginUser({
         },
         "User logged in"
     );
+
+    incrementLogin("Success");
 
     return {
         accessToken,

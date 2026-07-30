@@ -5,6 +5,7 @@ import { bullConnection } from "../bullConnection.js";
 import { findStoriesForCleanup,deleteStory } from "../../repositories/storyRepository.js";
 
 import {deleteObject} from "../../storage/s3Service.js"
+import { incrementStoryJob } from "../../monitoring/metricsService.js";
 
 new Worker(
     "story-cleanup",
@@ -26,9 +27,17 @@ new Worker(
                 console.log(
                     `Deleted story ${story.id}`
                 );
-            }catch{
+                incrementStoryJob(
+                    "processed"
+                );
+
+            }catch(err){
                 console.error(
                     `Failed Story ${story.id}`,
+                    err
+                );
+                incrementStoryJob(
+                    "failed"
                 );
             }
         }

@@ -5,6 +5,7 @@ import { ForbiddenError } from "../errors/ForbiddenError.js";
 import { findUserById } from "../repositories/authRepository.js";
 import { generateReadUrl } from "../storage/s3Service.js";
 import { logger } from "../logger/logger.js";
+import { incrementPostsCreated } from "../monitoring/metricsService.js";
 
 export async function createUserPost(
     currentUserId,
@@ -74,6 +75,10 @@ export async function createUserPost(
         }
 
         await client.query("COMMIT");
+
+        incrementPostsCreated(
+            data.post_type
+        );
         
     }catch (err) {
 

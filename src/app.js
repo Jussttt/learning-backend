@@ -20,7 +20,8 @@ import uploadRoutes
 from "./api/routes/uploadRoutes.js";
 import notificationRoutes from "./api/routes/notificationRoutes.js";
 import healthRoutes from "./api/routes/healthRoutes.js"
-
+import { metricsMiddleware } from "./middleware/metricsMiddleware.js";
+import { getMetrics } from "./monitoring/metricsController.js";
 
 
 export function createApp(){
@@ -37,6 +38,8 @@ export function createApp(){
     }));
     app.use(requestIdMiddleware);
     app.use(requestLogger);
+    app.use(metricsMiddleware);
+
 
     app.use(`${API_PREFIX}/auth`,authRoutes);
 
@@ -80,6 +83,15 @@ export function createApp(){
         `${API_PREFIX}/health`,
         healthRoutes
     );
+
+    app.get(
+        "/metrics",
+        getMetrics
+    );
+
+    app.get("/test500", (req, res) => {
+        throw new Error("Testing 500");
+    });
 
     
 

@@ -2,6 +2,7 @@ import { Worker } from "bullmq";
 
 import { bullConnection } from "../bullConnection.js";
 import { expireStory } from "../../repositories/storyRepository.js";
+import { incrementStoryJob } from "../../monitoring/metricsService.js";
 
 
 
@@ -23,13 +24,19 @@ new Worker(
                 );
             }
 
+            incrementStoryJob(
+                "processed"
+            );
+
         }catch(err){
 
             console.error(
                 "Story expiration failed",
                 err
             );
-
+            incrementStoryJob(
+                "failed"
+            );
             throw err;
         }
     },

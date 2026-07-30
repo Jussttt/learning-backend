@@ -8,6 +8,7 @@ import { NotificationTypes } from "../constants/notificationTypes.js";
 import { eventBus } from "../events/eventBus.js";
 import { pool } from "../db/pool.js";
 import { logger } from "../logger/logger.js";
+import { incrementLikeCreated } from "../monitoring/metricsService.js";
 
 export async function likePost(
     currentUserId,
@@ -71,6 +72,8 @@ export async function likePost(
         }
 
         await client.query("COMMIT");
+        incrementLikeCreated();
+
     }catch(err){
 
         try{

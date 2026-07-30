@@ -7,6 +7,7 @@ import { createAdapter }
 from "@socket.io/redis-adapter";
 
 import { socketSubClient,socketPubClient } from "../cache/socketRedis.js";
+import { setActiveSocketConnections } from "../monitoring/metricsService.js";
 
 export async function createSocketServer(
     httpServer
@@ -19,6 +20,7 @@ export async function createSocketServer(
             },
         }
     );
+    let activeConnection=0;
 
     io.use(authenticateSocket);
 
@@ -92,6 +94,9 @@ export async function createSocketServer(
     "connection",
 
     (socket)=>{
+
+        activeConnection++;
+        setActiveSocketConnections(activeConnection);
 
         socket.join(
             `user:${socket.user.userId}`
@@ -170,7 +175,10 @@ export async function createSocketServer(
 
         socket.on(
             "disconnect",
-            ()=>{
+            (reason)=>{
+                logger.info({ reason }, "Socket disconnected event fired");
+                activeConnection--;
+                setActiveSocketConnections(activeConnection);
 
                 removeUserSocket(
                     socket.user.userId,

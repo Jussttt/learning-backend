@@ -1,15 +1,32 @@
-import { io } from "socket.io-client";
 
-const socket =
-    io(
-        "http://localhost:3000",
-        {
-            auth:{
-                token:
-                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNzgyMDM2MjYwLCJleHAiOjE3ODI2NDEwNjB9.Bv18XQSVUhw-_xxYqmTI6syjUqNbkb976uQULNriD2E"
-            }
-        }
-    );
+import { io } from "socket.io-client";
+import https from "https";
+
+const socket = io("https://localhost", {
+    auth: {
+        token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNzgzOTQyMDg4LCJleHAiOjE3ODQ1NDY4ODh9.bQ9PzQd8ahvp1XUQgZnfIHD61-fSB9qHCiRA8rvGAZU"
+    },
+    transportOptions: {
+        polling: {
+            agent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
+        },
+    },
+});
+
+// import { io } from "socket.io-client";
+
+// const socket =
+//     io(
+//         "https://localhost",
+//         {
+//             auth:{
+//                 token:
+//                     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNzgzOTQyMDg4LCJleHAiOjE3ODQ1NDY4ODh9.bQ9PzQd8ahvp1XUQgZnfIHD61-fSB9qHCiRA8rvGAZU"
+//             }
+//         }
+//     );
 
 socket.on(
     "connect",
@@ -23,6 +40,10 @@ socket.on(
             "join_conversation",
             1
         );
+
+        setTimeout(() => {
+            socket.disconnect();
+        }, 20000);
 
         // setTimeout(
         //     ()=>{
@@ -50,7 +71,9 @@ socket.on(
         // );
     }
 );
-
+socket.on("connect_error",(err)=>{
+    console.log("Connection Error:",err.message);
+});
 
 
 socket.on(

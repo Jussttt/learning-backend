@@ -7,7 +7,7 @@ const socket =
         {
             auth:{
                 token:
-                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyIiwiaWF0IjoxNzgyMDM2Mjg1LCJleHAiOjE3ODI2NDEwODV9.oJwFPSRcFMEvBcCccicon1LV5zciFueymFSAeTCWHtk"
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxIiwiaWF0IjoxNzgzOTQyMDg4LCJleHAiOjE3ODQ1NDY4ODh9.bQ9PzQd8ahvp1XUQgZnfIHD61-fSB9qHCiRA8rvGAZU"
             }
         }
     );
