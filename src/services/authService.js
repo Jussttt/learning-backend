@@ -106,7 +106,7 @@ export async function loginUser({
         "User logged in"
     );
 
-    incrementLogin("Success");
+    incrementLogin("success");
 
     return {
         accessToken,
